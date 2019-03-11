@@ -23,7 +23,7 @@ exports.signup = (req, res, next) => {
     })
     .then(game => {
       coach.setGame(game).then(() => {
-        loginFromRegister(rUsername, rPassword, res);
+        next();
       });
     })
     .catch(err => {
@@ -33,31 +33,6 @@ exports.signup = (req, res, next) => {
   .catch(err => {
     res.status(500).send("Fail! Error -> " + err);
   })
-}
-
-const loginFromRegister = (username, password, res) => {
-  Coach.findOne({
-    where: {
-      username: username
-    }
-  })
-  .then(coach => {
-    if (!coach) {
-      return res.status(404).send('Coach Not Found.');
-    }
-
-    if (!bcrypt.compareSync(password, coach.password)) {
-			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
-		}
-
-		const token = jwt.sign({ id: coach.id }, config.secret, {
-		  expiresIn: 86400 // expires in 24 hours
-    });
-    res.status(200).send({ auth: true, accessToken: token });
-  })
-  .catch(err => {
-    res.status(500).send('Error with login -> ' + err);
-	});
 }
 
 exports.login = (req, res) => {

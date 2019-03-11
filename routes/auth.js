@@ -5,7 +5,7 @@ const authJwt = require('../middleware/verifyJwtToken');
 const authController = require('../controllers/authController.js');
 
 router.post(
-  '/register', verifySignUp.checkDuplicateUserNameOrEmail, authController.signup
+  '/register', verifySignUp.checkDuplicateUserNameOrEmail, authController.signup, authController.login
 );
 
 router.post('/login', authController.login);
