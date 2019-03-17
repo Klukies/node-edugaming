@@ -43,20 +43,29 @@ exports.login = (req, res) => {
   })
   .then(coach => {
     if (!coach) {
-      return res.status(404).send('Coach Not Found.');
+      return res.status(404).json({
+        "error": "Coach not found",
+      });
     }
 
     if (!bcrypt.compareSync(req.body.password, coach.password)) {
-			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
+			return res.status(401).json({
+        "error": "Invalid Password!"
+      });
 		}
 
 		const token = jwt.sign({ id: coach.id }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
     });
-    res.status(200).send({ auth: true, accessToken: token });
+    res.status(200).json({
+      "auth": true,
+      "accessToken": token
+    });
   })
   .catch(err => {
-    res.status(500).send('Error with login -> ' + err);
+    res.status(500).json({
+      "error with finding coach": err
+    });
 	});
 }
 
