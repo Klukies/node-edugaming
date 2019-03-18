@@ -27,11 +27,14 @@ exports.signup = (req, res, next) => {
       });
     })
     .catch(err => {
-      res.status(500).send("Error -> " + err);
+      res.status(500).json({
+        "error": err
+      });
     });
   })
   .catch(err => {
-    res.status(500).send("Fail! Error -> " + err);
+    res.status(500).json({
+      "error": + err});
   })
 }
 

@@ -1,8 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   const Coach = sequelize.define('coaches', {
-    name: {
-      type: Sequelize.STRING
-    },
     username: {
       type: Sequelize.STRING
     },
@@ -17,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     description: {
       type: Sequelize.TEXT
+    },
+    img: {
+      type: Sequelize.STRING
     }
   });
   return Coach;
