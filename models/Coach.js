@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const Coach = sequelize.define('coaches', {
+    id: {
+      field: "coach_id",
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     username: {
       type: Sequelize.STRING
     },
@@ -15,9 +21,17 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.TEXT
     },
-    img: {
+    img_url: {
       type: Sequelize.STRING
+    },
+    price: {
+      type: Sequelize.INTEGER
+    },
+    game_id: {
+      type: Sequelize.INTEGER
     }
+  }, {
+    underscored: true
   });
   return Coach;
 }

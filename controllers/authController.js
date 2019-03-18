@@ -11,11 +11,11 @@ exports.signup = (req, res, next) => {
   const rUsername = req.body.username;
   const rPassword = req.body.password;
   Coach.create({
-    name: req.body.name,
 		username: rUsername,
 		email: req.body.email,
 		password: bcrypt.hashSync(req.body.password, 8),
-  }).then(coach => {
+  })
+  .then(coach => {
     Game.findOne({
       where: {
         id: 1
@@ -34,11 +34,13 @@ exports.signup = (req, res, next) => {
   })
   .catch(err => {
     res.status(500).json({
-      "error": + err});
+      "error": err,
+    });
   })
 }
 
 exports.login = (req, res) => {
+  console.log("loggin in...");
   Coach.findOne({
     where: {
       username: req.body.username
@@ -57,7 +59,7 @@ exports.login = (req, res) => {
       });
 		}
 
-		const token = jwt.sign({ id: coach.id }, config.secret, {
+		const token = jwt.sign({ id: coach.coach_id }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
     });
     res.status(200).json({
@@ -72,15 +74,16 @@ exports.login = (req, res) => {
 	});
 }
 
+//todo: get correct usercontent
 exports.userContent = (req, res) => {
   Coach.findOne({
-    where: {id: req.coachId},
+    where: {id: req.coach_id},
     attributes: ['name', 'username', 'email'],
     include: [{
       model: Game,
       attributes: ['id', 'title'],
       through: {
-        attributes: ['coachId', 'id'],
+        attributes: ['coach_id', 'id'],
       }
     }]
   })
