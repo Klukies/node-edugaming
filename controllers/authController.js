@@ -59,12 +59,15 @@ exports.login = (req, res) => {
       });
 		}
 
-		const token = jwt.sign({ id: coach.coach_id }, config.secret, {
+    let img_url = "/images/" + coach.img_url;
+
+		const token = jwt.sign({ id: coach.id }, config.secret, {
 		  expiresIn: 86400 // expires in 24 hours
     });
     res.status(200).json({
       "auth": true,
-      "accessToken": token
+      "accessToken": token,
+      coach,
     });
   })
   .catch(err => {
