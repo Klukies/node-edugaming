@@ -1,7 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Coach = sequelize.define('coaches', {
-    id: {
-      field: "coach_id",
+    coach_id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,

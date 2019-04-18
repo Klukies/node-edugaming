@@ -62,7 +62,7 @@ exports.login = (req, res) => {
     let img_url = "/images/" + coach.img_url;
 
 		const token = jwt.sign({ id: coach.id }, config.secret, {
-		  expiresIn: 86400 // expires in 24 hours
+		  expiresIn: '1y' // expires in 24 hours
     });
     res.status(200).json({
       "auth": true,
