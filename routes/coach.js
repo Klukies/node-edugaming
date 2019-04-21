@@ -19,4 +19,12 @@ router.post(
   '/price', [authJwt.verifyToken], coachController.updatePrice
 );
 
+router.post(
+  '/summary', [authJwt.verifyToken], coachController.updateSummary
+);
+
+router.post(
+  '/description', [authJwt.verifyToken], coachController.updateDescription
+);
+
 module.exports = router;

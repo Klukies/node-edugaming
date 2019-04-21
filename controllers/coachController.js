@@ -49,3 +49,27 @@ exports.updatePrice = (req, res) => {
     })
   });
 }
+
+exports.updateSummary = (req, res) => {
+  Coach.update({ summary: req.body.summary }, {
+    where: {
+      coach_id: req.coach_id
+    }
+  }).then(() => {
+    res.status(200).json({
+      success: "Summary successfully updated"
+    })
+  });
+}
+
+exports.updateDescription = (req, res) => {
+  Coach.update({ description: req.body.description }, {
+    where: {
+      coach_id: req.coach_id
+    }
+  }).then(() => {
+    res.status(200).json({
+      success: "Description successfully updated"
+    })
+  });
+}
