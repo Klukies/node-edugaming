@@ -20,7 +20,7 @@ verifyToken = (req, res, next) => {
         message: 'Fail to Authentication. Error -> ' + err
       });
     }
-    req.coach_id = decoded.id;
+    req.coach_id = decoded.coach_id;
     next();
   });
 }

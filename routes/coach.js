@@ -27,4 +27,8 @@ router.post(
   '/description', [authJwt.verifyToken], coachController.updateDescription
 );
 
+router.post(
+  '/image', [authJwt.verifyToken], coachController.updateImage
+)
+
 module.exports = router;

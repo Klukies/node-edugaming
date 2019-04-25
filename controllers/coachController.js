@@ -39,7 +39,7 @@ exports.updateGameId = (req, res) => {
 }
 
 exports.updatePrice = (req, res) => {
-  Coach.update({ price: req.body.price }, {
+  Coach.update({ price: parseInt(req.body.price) }, {
     where: {
       coach_id: req.coach_id
     }
@@ -71,5 +71,26 @@ exports.updateDescription = (req, res) => {
     res.status(200).json({
       success: "Description successfully updated"
     })
+  });
+}
+
+exports.updateImage = (req, res) => {
+  const base64Data = req.body.image;
+  const img_url = '/images/' + Date.now() + '.webp';
+  require("fs").writeFile("public" + img_url, base64Data, 'base64', function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      Coach.update({ img_url: img_url }, {
+        where: {
+          coach_id: req.coach_id
+        }
+      }).then(() => {
+        res.status(200).json({
+          success: "Image successfully updated",
+          img_url
+        })
+      });
+    }
   });
 }

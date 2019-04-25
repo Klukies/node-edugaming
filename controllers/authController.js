@@ -61,7 +61,7 @@ exports.login = (req, res) => {
 
     let img_url = "/images/" + coach.img_url;
 
-		const token = jwt.sign({ id: coach.id }, config.secret, {
+		const token = jwt.sign({ coach_id: coach.coach_id }, config.secret, {
 		  expiresIn: '1y' // expires in 24 hours
     });
     res.status(200).json({
@@ -80,7 +80,7 @@ exports.login = (req, res) => {
 //todo: get correct usercontent
 exports.userContent = (req, res) => {
   Coach.findOne({
-    where: {id: req.coach_id},
+    where: {coach_id: req.coach_id},
     attributes: ['name', 'username', 'email'],
     include: [{
       model: Game,
