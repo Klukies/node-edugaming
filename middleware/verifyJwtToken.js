@@ -13,7 +13,7 @@ verifyToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, config.secret, { algorithms: ['HS256'] } , (err, decoded) => {
     if (err) {
       return res.status(500).send({
         auth: false,

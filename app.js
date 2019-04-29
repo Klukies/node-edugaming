@@ -12,6 +12,7 @@ const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const gamesRouter = require('./routes/games');
 const coachRouter = require('./routes/coach');
+const reservationsRouter = require('./routes/reservations');
 
 //php artisan migrate
 //db.sequelize.sync({force: false});
@@ -31,6 +32,7 @@ app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/games', gamesRouter);
 app.use('/coach', coachRouter);
+app.use('/reservations', reservationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -19,6 +19,7 @@ const db = {
   sequelize,
   coach: require('../models/Coach.js')(sequelize, Sequelize),
   game: require('../models/Game.js')(sequelize, Sequelize),
+  reservation: require('../models/Reservation.js')(sequelize, Sequelize),
 };
 
 db.coach.belongsTo(db.game);
