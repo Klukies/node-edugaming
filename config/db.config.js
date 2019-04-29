@@ -20,8 +20,11 @@ const db = {
   coach: require('../models/Coach.js')(sequelize, Sequelize),
   game: require('../models/Game.js')(sequelize, Sequelize),
   reservation: require('../models/Reservation.js')(sequelize, Sequelize),
+  users: require('../models/User.js')(sequelize, Sequelize),
 };
 
 db.coach.belongsTo(db.game);
+db.reservation.belongsTo(db.coach, {foreignKey: 'coach_id', targetKey: 'coach_id'});
+db.reservation.belongsTo(db.users, {foreignKey: 'user_id', targetKey: 'id'});
 
 module.exports = db;
