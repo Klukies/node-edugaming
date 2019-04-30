@@ -6,6 +6,7 @@ const User = db.users;
 const Reservation = db.reservation;
 
 exports.coachReservations = (req, res) => {
+  //todo only give the one where date hasn't passed yet
   Reservation.findAll({
     attributes: ['reservation_time', 'confirmed'],
     where: {
@@ -21,4 +22,9 @@ exports.coachReservations = (req, res) => {
   }).then(reservations => {
     res.status(200).json({reservations});
   })
+}
+
+exports.coachHandleReservation = (req, res) => {
+  //todo: cancel reservation
+  console.log(req.coach_id, req.body.username, req.body.reservation_time);
 }

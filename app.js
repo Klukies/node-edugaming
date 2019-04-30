@@ -7,13 +7,6 @@ const logger = require('morgan');
 const jwt = require('jsonwebtoken');
 const db = require('./config/db.config.js');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
-const gamesRouter = require('./routes/games');
-const coachRouter = require('./routes/coach');
-const reservationsRouter = require('./routes/reservations');
-
 //php artisan migrate
 //db.sequelize.sync({force: false});
 
@@ -27,12 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
-app.use('/games', gamesRouter);
-app.use('/coach', coachRouter);
-app.use('/reservations', reservationsRouter);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/auth', require('./routes/auth'));
+app.use('/games', require('./routes/games'));
+app.use('/coach', require('./routes/coach'));
+app.use('/reservations', require('./routes/reservations'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
