@@ -8,7 +8,7 @@ const Reservation = db.reservation;
 exports.coachReservations = (req, res) => {
   //todo only give the one where date hasn't passed yet
   Reservation.findAll({
-    attributes: ['reservation_time', 'confirmed'],
+    attributes: ['user_id', 'reservation_time', 'confirmed'],
     where: {
       coach_id: req.coach_id
     },
@@ -25,6 +25,15 @@ exports.coachReservations = (req, res) => {
 }
 
 exports.coachHandleReservation = (req, res) => {
-  //todo: cancel reservation
-  console.log(req.coach_id, req.body.username, req.body.reservation_time);
+  Reservation.update({ confirmed: req.body.confirmed }, {
+    where: {
+      user_id: req.body.user_id,
+      coach_id: req.coach_id,
+      reservation_time: req.body.reservation_time.split('"')[1]
+    }
+  }).then(() => {
+    res.status(200).json({
+      success: "Reservation has been updated"
+    })
+  })
 }

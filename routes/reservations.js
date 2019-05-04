@@ -9,6 +9,10 @@ router.get(
 
 router.post(
   '/cancel', [authJwt.verifyToken], reservationsController.coachHandleReservation
+);
+
+router.post(
+  '/confirm', [authJwt.verifyToken], reservationsController.coachHandleReservation
 )
 
 module.exports = router;
