@@ -4,13 +4,16 @@ const jwt = require('jsonwebtoken');
 const Coach = db.coach;
 const User = db.users;
 const Reservation = db.reservation;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 exports.coachReservations = (req, res) => {
   //todo only give the one where date hasn't passed yet
   Reservation.findAll({
     attributes: ['user_id', 'reservation_time', 'confirmed'],
     where: {
-      coach_id: req.coach_id
+      coach_id: req.coach_id,
+      reservation_time: {[Op.gt]: new Date()}
     },
     include: [{
       model: User,
